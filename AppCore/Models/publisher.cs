@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Text.Json.Serialization;
 using Microsoft.EntityFrameworkCore;
 
 namespace AppCore.Models;
@@ -17,5 +18,6 @@ public partial class publisher
     public string publisher_name { get; set; }
 
     [InverseProperty("publisher")]
+    [JsonIgnore]
     public virtual ICollection<book> book { get; set; } = new List<book>();
 }

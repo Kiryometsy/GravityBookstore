@@ -10,12 +10,13 @@ using Infrastracture.Db;
 using Infrastracture.Service.IService;
 using AppCore.Dto;
 using AppCore.Filters;
+using BookstoreApi.Controllers.IControllers;
 
 namespace BookstoreApi.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class bookController : ControllerBase
+    public class bookController : ControllerBase, IBookController
     {
         private readonly IBookService _bookService;
 

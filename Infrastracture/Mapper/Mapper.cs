@@ -13,6 +13,7 @@ public class Mapper : Profile
 {
     public Mapper()
     {
+        //book
         CreateMap<book, BookDto>()
             .AfterMap((src, dest) =>
             {
@@ -34,6 +35,21 @@ public class Mapper : Profile
                 dest.num_pages = src.NumPages;
                 dest.publication_date = src.PublicationDate;
                 dest.publisher_id = src.PublisherId;
+            });
+        //customer
+        CreateMap<customer, CustomerDto>()
+            .AfterMap((src, dest) =>
+            {
+                dest.firstName = src.first_name;
+                dest.lastName = src.last_name;
+                dest.email = src.email;
+            });
+        CreateMap<CustomerDto, customer>()
+            .AfterMap((src, dest) =>
+            {
+                dest.first_name = src.firstName;
+                dest.last_name = src.lastName;
+                dest.email = src.email;
             });
     }
 }

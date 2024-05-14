@@ -40,9 +40,11 @@ namespace BookstoreApi
 
             //Service
             builder.Services.AddScoped<IBookService, BookService>();
+            builder.Services.AddScoped<ICustomerService, CustomerService>();
 
             //Repository
             builder.Services.AddScoped<IBookRepositories, BookRepositories>();
+            builder.Services.AddScoped<ICustomerRepositories, CustomerRepositories>();
 
             //Swagger
             builder.Services.AddEndpointsApiExplorer();
@@ -128,4 +130,7 @@ namespace BookstoreApi
             app.Run();
         }
     }
+    //public partial class Program
+    //{
+    //}
 }

@@ -29,12 +29,18 @@ public class BookRepositories : IBookRepositories
     {
         try
         {
-            IQueryable<book> query = _context.book.AsQueryable();
+            IQueryable<book> query = _context.book
+                .Include(x => x.publisher)
+                .AsQueryable();
 
             //Filters
             if (filter.Id != null)
             {
                 query = query.Where(x => x.book_id.Equals(filter.Id));
+            }
+            if(!string.IsNullOrEmpty(filter.publisher_Name))
+            {
+                query = query.Where(x => x.publisher.publisher_name.Contains(filter.publisher_Name));
             }
 
             //Sort
