@@ -15,4 +15,5 @@ public interface ICustomerRepositories
     Task<bool> UpdateCustomer(customer customer, int customer_id);
     Task<bool> DeleteCustomer(int customer_id);
     Task<int> Count();
+    Task<int> CountAddreses();
 }

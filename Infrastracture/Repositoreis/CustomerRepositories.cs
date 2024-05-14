@@ -73,6 +73,7 @@ public class CustomerRepositories : ICustomerRepositories
             };
 
             await _context.customer_address.AddAsync(adres);
+            await _context.SaveChangesAsync();
             return customer.customer_id;
         }
         catch (Exception ex)
@@ -93,5 +94,10 @@ public class CustomerRepositories : ICustomerRepositories
     public async Task<int> Count()
     {
         return await _context.customer.CountAsync();
+    }
+
+    public async Task<int> CountAddreses()
+    {
+        return await _context.address.CountAsync();
     }
 }

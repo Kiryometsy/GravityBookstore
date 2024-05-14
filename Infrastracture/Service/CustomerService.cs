@@ -34,6 +34,7 @@ public class CustomerService : ICustomerService
         address adres = _mapper.Map<address>(customerDto.address);
         customer mappedCustomer = _mapper.Map<customer>(customerDto);
         mappedCustomer.customer_id = _customerRepositories.Count().Result + 1;
+        adres.address_id = _customerRepositories.CountAddreses().Result + 1;
         int createCustomerDto = await _customerRepositories.CreateCustomer(mappedCustomer, adres);
         return createCustomerDto;
     }
