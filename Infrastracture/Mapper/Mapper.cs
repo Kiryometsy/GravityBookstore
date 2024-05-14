@@ -51,5 +51,14 @@ public class Mapper : Profile
                 dest.last_name = src.lastName;
                 dest.email = src.email;
             });
+        //address
+        CreateMap<AddressDto, address>()
+            .AfterMap((src, dest) =>
+            {
+                dest.street_number = src.streetNumber;
+                dest.street_name = src.streetName;
+                dest.city = src.city;
+                dest.country_id = src.countryId;
+            });
     }
 }

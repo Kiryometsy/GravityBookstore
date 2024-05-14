@@ -12,5 +12,5 @@ public class CustomerDto
     public string firstName { get; set; }
     public string lastName { get; set; }
     public string email {  get; set; }
-    public address address { get; set; }
+    public AddressDto address { get; set; }
 }

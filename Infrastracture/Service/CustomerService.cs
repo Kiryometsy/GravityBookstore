@@ -25,13 +25,16 @@ public class CustomerService : ICustomerService
     }
     public async Task<List<CustomerDto>> Get(CustomerFilter filter)
     {
-        throw new NotImplementedException();
+        List<customer> getCustomerList = await _customerRepositories.Get(filter);
+        List<CustomerDto> mappedCustomer = _mapper.Map<List<CustomerDto>>(getCustomerList);
+        return mappedCustomer;
     }
     public async Task<int> Post(CustomerDto customerDto)
     {
+        address adres = _mapper.Map<address>(customerDto.address);
         customer mappedCustomer = _mapper.Map<customer>(customerDto);
         mappedCustomer.customer_id = _customerRepositories.Count().Result + 1;
-        int createCustomerDto = await _customerRepositories.CreateCustomer(mappedCustomer);
+        int createCustomerDto = await _customerRepositories.CreateCustomer(mappedCustomer, adres);
         return createCustomerDto;
     }
     public async Task<bool> Put(CustomerDto customerDto, int customer_id)

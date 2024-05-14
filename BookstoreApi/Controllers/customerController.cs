@@ -1,6 +1,7 @@
 ﻿using AppCore.Dto;
 using AppCore.Filters;
 using BookstoreApi.Controllers.IControllers;
+using Infrastracture.Service;
 using Infrastracture.Service.IService;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -23,14 +24,25 @@ namespace BookstoreApi.Controllers
             throw new NotImplementedException();
         }
         [HttpGet]
-        public Task<ActionResult<List<CustomerDto>>> Get([FromQuery] CustomerFilter filter)
+        public async Task<ActionResult<List<CustomerDto>>> Get([FromQuery] CustomerFilter filter)
         {
-            throw new NotImplementedException();
+            List<CustomerDto> result = await _customerService.Get(filter);
+            if (result.Count <= 0)
+            {
+                return NotFound();
+            }
+            return Ok(result);
         }
+
         [HttpPost]
-        public Task<ActionResult<int>> Post([FromBody] CustomerDto createCustomer)
+        public async Task<ActionResult<int>> Post([FromBody] CustomerDto createCustomer)
         {
-            throw new NotImplementedException();
+            int createCustomerId = await _customerService.Post(createCustomer);
+            if (createCustomerId == 0)
+            {
+                return BadRequest("unable to create customer.");
+            }
+            return CreatedAtAction(nameof(Post), new { customerId = createCustomerId });
         }
         [HttpPut("{id}")]
         public Task<ActionResult<bool>> Put([FromBody] CustomerDto updateCustomer, [FromQuery] int customer_id)
