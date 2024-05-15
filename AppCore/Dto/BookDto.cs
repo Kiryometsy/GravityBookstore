@@ -17,5 +17,5 @@ public class BookDto
     public int? NumPages { get; set; }
     public DateOnly? PublicationDate { get; set; }
     public int? PublisherId { get; set; }
-    public publisher publisher { get; set; }
+    //public publisher publisher { get; set; }
 }

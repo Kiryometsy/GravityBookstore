@@ -17,6 +17,8 @@ public partial class gravity_booksContext : DbContext
     public virtual DbSet<author> author { get; set; }
 
     public  DbSet<book> book { get; set; }
+    public DbSet<book_author> book_author { get; set; }
+
 
     public virtual DbSet<book_language> book_language { get; set; }
 

@@ -17,7 +17,7 @@ namespace Testy
         {
             // Arrange
             var mockBookService = new Mock<IBookService>();
-            var controller = new bookController(mockBookService.Object);
+            var controller = new booksController(mockBookService.Object);
             var expectedBooks = new List<BookDto>
             {
                 new BookDto { BookId = 1, Title = "Book 1" },
@@ -42,7 +42,7 @@ namespace Testy
             using var client = application.CreateClient();
 
             //Act
-            var result = await client.GetAsync("/api/book");
+            var result = await client.GetAsync("/api/books");
 
             //Assert
             Assert.Equal(HttpStatusCode.OK, result.StatusCode);
@@ -55,7 +55,7 @@ namespace Testy
             await using var application = new WebApplicationFactory<Program>();
             using var client = application.CreateClient();
 
-            var result = await client.GetFromJsonAsync<List<BookDto>>("/api/book");
+            var result = await client.GetFromJsonAsync<List<BookDto>>("/api/books");
 
             Assert.Equal(10, result.Count);
         }

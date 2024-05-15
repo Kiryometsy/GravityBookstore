@@ -30,8 +30,23 @@ namespace BookstoreApi
             var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 
             // Add DbContext with PostgreSQL provider
-            builder.Services.AddDbContext<gravity_booksContext>(options =>
-                options.UseNpgsql(connectionString));
+            //builder.Services.AddDbContext<gravity_booksContext>(options =>
+            //    options.UseNpgsql(connectionString));
+
+            if (builder.Environment.EnvironmentName != "Testing")
+            {
+                // Add DbContext with PostgreSQL provider
+                builder.Services.AddDbContext<gravity_booksContext>(options =>
+                    options.UseNpgsql(connectionString));
+            }
+            else
+            {
+                // Add DbContext with InMemory provider for testing
+                builder.Services.AddDbContext<gravity_booksContext>(options =>
+                    options.UseInMemoryDatabase("TestDatabase"));
+            }
+            //builder.Services.AddDbContext<gravity_booksContext>(options =>
+            //options.UseInMemoryDatabase("TestDatabase"));
 
             //Automapper
             builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
@@ -111,7 +126,7 @@ namespace BookstoreApi
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.
-            if (app.Environment.IsDevelopment())
+            if (app.Environment.IsDevelopment() || app.Environment.EnvironmentName == "Testing")
             {
                 app.UseSwagger();
                 app.UseSwaggerUI(c =>

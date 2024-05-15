@@ -67,6 +67,12 @@ public class BookRepositories : IBookRepositories
         try
         {
             var temp=await _context.book.AddAsync(book);
+            book_author ba = new book_author()
+            {
+                book_id = book.book_id,
+                author_id = 1
+            };
+            await _context.book_author.AddAsync(ba);
             await _context.SaveChangesAsync().ConfigureAwait(false);
             return book.book_id;
         }

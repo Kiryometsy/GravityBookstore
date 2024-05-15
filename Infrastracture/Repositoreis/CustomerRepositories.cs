@@ -33,6 +33,8 @@ public class CustomerRepositories : ICustomerRepositories
                 .ThenInclude(ca => ca.address)
                 .AsQueryable();
 
+
+
             //Filters
             if (filter.Id != null)
             {
